@@ -6,19 +6,19 @@ pragma solidity ^0.8.24;
 import "@openzeppelin/contracts/access/AccessControl.sol";
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 
-contract PangoulToken is ERC20 {
+contract PangoulToken is ERC20, AccessControl {
 
     // create new role for identifier of minter role
     bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
 
     // inherit from openzeppelin ERC20 contract
-    constructor(unit256 initialSupply) ERC20("Pangoul", "PANG") {
+    constructor(uint256 initialSupply) ERC20("Pangoul", "PANG") {
         _grantRole(DEFAULT_ADMIN_ROLE, msg.sender);
         _grantRole(MINTER_ROLE, msg.sender);
         _mint(msg.sender, initialSupply * 10 ** decimals());
     }
 
-    function mint(address to, unit256 amount) public onlyRole(MINTER_ROLE) {
+    function mint(address to, uint256 amount) public onlyRole(MINTER_ROLE) {
         _mint(to, amount);
     }
 }

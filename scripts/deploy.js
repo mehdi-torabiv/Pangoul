@@ -1,10 +1,9 @@
 const hre = require("hardhat");
 
 async function main() {
-    const [deployer] = await hre.ethers.getSigners();
+    const [deployer] = await ethers.getSigners();
 
     console.log("Deploying contracts with the account:", deployer.address);
-    console.log("Account balance:", (await deployer.getBalance()).toString());
 
     const PangoulToken = await hre.ethers.getContractFactory("PangoulToken");
     const pangoulToken = await PangoulToken.deploy(5000000000);
